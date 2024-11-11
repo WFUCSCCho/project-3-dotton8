@@ -1,17 +1,65 @@
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Proj3 {
     // Sorting Method declarations
     // Merge Sort
     public static <T extends Comparable> void mergeSort(ArrayList<T> a, int left, int right) {
         // Finish Me
+        if (left < right) {
+            int middle = (left + right) / 2;
+
+            mergeSort(a, left, middle);
+            mergeSort(a, middle + 1, right);
+
+            merge(a, left, middle, right);
+        }
     }
 
     public static <T extends Comparable> void merge(ArrayList<T> a, int left, int mid, int right) {
         // Finish Me
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        ArrayList<T> leftA = new ArrayList<>(n1);
+        ArrayList<T> rightA = new ArrayList<>(n2);
+
+        for (int i = 0; i < n1; i++) {
+            leftA.add(a.get(left + i));
+        }
+        for (int j = 0; j < n2; j++) {
+            rightA.add(a.get(mid + 1 + j));
+        }
+
+        int i = 0, j = 0;
+        int k = left;
+        while (i < n1 && j < n2) {
+            if (leftA.get(i).compareTo(rightA.get(j)) <= 0) {
+                a.set(k, leftA.get(i));
+                i++;
+            } else {
+                a.set(k, rightA.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            a.set(k, leftA.get(i));
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            a.set(k, rightA.get(j));
+            j++;
+            k++;
+        }
     }
 
+    /*
     // Quick Sort
     public static <T extends Comparable> void quickSort(ArrayList<T> a, int left, int right) {
         // Finish Me
@@ -45,10 +93,104 @@ public class Proj3 {
     public static <T extends Comparable> int transpositionSort(ArrayList<T> a, int size) {
         // Finish Me
     }
+    */
 
     public static void main(String [] args)  throws IOException {
         //...
         // Finish Me
         //...
+        // Use command line arguments to specify the input file
+        if (args.length != 2) {
+            System.err.println("Usage: java TestAvl <input file> <number of lines>");
+            System.exit(1);
+        }
+
+        String inputFileName = args[0];
+        int numLines = Integer.parseInt(args[1]);
+
+        // For file input
+        FileInputStream inputFileNameStream = null;
+        Scanner inputFileNameScanner = null;
+
+        // Open the input file
+        inputFileNameStream = new FileInputStream(inputFileName);
+        inputFileNameScanner = new Scanner(inputFileNameStream);
+
+        // ignore first line
+        inputFileNameScanner.nextLine();
+
+        // FINISH ME
+
+        String[] myMovies = new String[10]; // Array to store movie attributes read from the CSV
+        Movies movie;
+        String title;
+        Integer year = 0;
+        String distributor;
+        Long budget = 0L;
+        Long domOpen = 0L;
+        Long domSales = 0L;
+        Long intSales = 0L;
+        Long wwSales = 0L;
+        String runtime;
+        String license;
+
+        ArrayList<Movies> data = new ArrayList<>();
+        for (int i = 0; i < numLines; i++) {
+            String line = inputFileNameScanner.nextLine();
+            if (line == null || line.isEmpty()) {
+                continue; // Skip empty lines
+            } else {
+                line = line.trim();
+            }
+            myMovies = line.split(",");
+            if (myMovies.length != 10) {
+                continue; // Skip lines that don't have all 10 attributes
+            }
+            try {
+                // Set the movie attributes
+                title = myMovies[0] == null ? "N/A" : myMovies[0];
+                if (isNumeric(myMovies[1])) {year = Integer.parseInt(myMovies[1] == null ? "0" : myMovies[1]);}
+                distributor = myMovies[2] == null ? "N/A" : myMovies[2];
+                if (isNumeric(myMovies[3])) {budget = Long.parseLong(myMovies[3] == null ? "0" : myMovies[3]);}
+                if (isNumeric(myMovies[4])) {domOpen = Long.parseLong(myMovies[4] == null ? "0" : myMovies[4]);}
+                if (isNumeric(myMovies[5])) {domSales = Long.parseLong(myMovies[5] == null ? "0" : myMovies[5]);}
+                if (isNumeric(myMovies[6])) {intSales = Long.parseLong(myMovies[6] == null ? "0" : myMovies[6]);}
+                if (isNumeric(myMovies[7])) {wwSales = Long.parseLong(myMovies[7] == null ? "0" : myMovies[7]);}
+                runtime = myMovies[8] == null ? "0" : myMovies[8];
+                license = myMovies[9] == null ? "0" : myMovies[9];
+
+                // Create and set values for the movie object
+                movie = new Movies();
+                movie.setTitle(title);
+                movie.setYear(year);
+                movie.setDistributor(distributor);
+                movie.setBudget(budget);
+                movie.setDomOpen(domOpen);
+                movie.setDomSales(domSales);
+                movie.setIntSales(intSales);
+                movie.setWwSales(wwSales);
+                movie.setRuntime(runtime);
+                movie.setLicense(license);
+
+                data.add(movie);
+            } catch (NumberFormatException e) {
+                break;
+            }
+        }
+        inputFileNameScanner.close();
+
+
+    }
+
+    private static boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
