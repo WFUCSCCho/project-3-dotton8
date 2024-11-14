@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Proj3 {
@@ -59,14 +60,33 @@ public class Proj3 {
         }
     }
 
-    /*
+
     // Quick Sort
     public static <T extends Comparable> void quickSort(ArrayList<T> a, int left, int right) {
         // Finish Me
+        if (left < right) {
+            int pivot = partition(a, left, right);
+
+            quickSort(a, left, pivot - 1);
+            quickSort(a, pivot + 1, right);
+        }
     }
 
     public static <T extends Comparable> int partition (ArrayList<T> a, int left, int right) {
         // Finish Me
+        T pivot = a.get(right);
+        int i = left - 1;
+
+        for (int j = left; j < right; j++) {
+            if (a.get(j).compareTo(pivot) <= 0) {
+                i++;
+                swap(a, i, j);
+            }
+        }
+
+        swap(a, i + 1, right);
+
+        return i + 1;
     }
 
     static <T> void swap(ArrayList<T> a, int i, int j) {
@@ -75,38 +95,105 @@ public class Proj3 {
         a.set(j, temp);
     }
 
+
     // Heap Sort
     public static <T extends Comparable> void heapSort(ArrayList<T> a, int left, int right) {
         // Finish Me
+        for (int i = (right + left) / 2; i >= left; i--) {
+            heapify(a, i, right);
+        }
+
+        for (int i = right; i > left; i--) {
+            swap(a, left, i);
+            heapify(a, left, i - 1);
+        }
     }
 
     public static <T extends Comparable> void heapify (ArrayList<T> a, int left, int right) {
         // Finish Me
+        int largest = left;
+        int leftChild = 2 * left + 1;
+        int rightChild = 2 * left + 2;
+
+        if (leftChild <= right && a.get(leftChild).compareTo(a.get(largest)) > 0) {
+            largest = leftChild;
+        }
+
+        if (rightChild <= right && a.get(rightChild).compareTo(a.get(largest)) > 0) {
+            largest = rightChild;
+        }
+
+        if (largest != left) {
+            swap(a, left, largest);
+            heapify(a, largest, right);
+        }
     }
+
 
     // Bubble Sort
     public static <T extends Comparable> int bubbleSort(ArrayList<T> a, int size) {
         // Finish Me
+        boolean swapped;
+        int swaps = 0;
+
+        for (int i = 0; i < size - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < size - i - 1; j++) {
+                if (a.get(j).compareTo(a.get(j + 1)) > 0) {
+                    swap(a, j, j + 1);
+                    swapped = true;
+                    swaps++;
+                }
+            }
+            if (!swapped) {
+                break;
+            }
+        }
+        return swaps;
     }
 
     // Odd-Even Transposition Sort
     public static <T extends Comparable> int transpositionSort(ArrayList<T> a, int size) {
         // Finish Me
+        boolean sorted = false;
+        int oddSwaps = 0;
+        int evenSwaps = 0;
+
+        while (!sorted) {
+            sorted = true;
+
+            for (int i = 1; i < size - 1; i += 2) {
+                if (a.get(i).compareTo(a.get(i + 1)) > 0) {
+                    swap(a, i, i + 1);
+                    sorted = false;
+                    oddSwaps++;
+                }
+            }
+
+            for (int i = 0; i < size - 1; i += 2) {
+                if (a.get(i).compareTo(a.get(i + 1)) > 0) {
+                    swap(a, i, i + 1);
+                    sorted = false;
+                    evenSwaps++;
+                }
+            }
+        }
+        return Math.max(evenSwaps, oddSwaps);
     }
-    */
 
     public static void main(String [] args)  throws IOException {
         //...
         // Finish Me
         //...
         // Use command line arguments to specify the input file
-        if (args.length != 2) {
-            System.err.println("Usage: java TestAvl <input file> <number of lines>");
+        if (args.length != 3) {
+            System.err.println("Usage: java TestAvl <input file> <sort type> <number of lines>");
             System.exit(1);
         }
 
         String inputFileName = args[0];
-        int numLines = Integer.parseInt(args[1]);
+        String algorithm = args[1];
+        int numLines = Integer.parseInt(args[2]);
 
         // For file input
         FileInputStream inputFileNameStream = null;
@@ -179,7 +266,39 @@ public class Proj3 {
         }
         inputFileNameScanner.close();
 
-
+        int swaps;
+        switch (algorithm) {
+            case "mergeSort":
+                Collections.shuffle(data);
+                System.out.println(data);
+                mergeSort(data, 0, data.size() - 1);
+                System.out.println(data);
+                break;
+            case "quickSort":
+                Collections.shuffle(data);
+                System.out.println(data);
+                quickSort(data, 0, data.size() - 1);
+                System.out.println(data);
+                break;
+            case "heapSort":
+                Collections.shuffle(data);
+                System.out.println(data);
+                heapSort(data, 0, data.size() - 1);
+                System.out.println(data);
+                break;
+            case "bubbleSort":
+                Collections.shuffle(data);
+                System.out.println(data);
+                swaps = bubbleSort(data, data.size());
+                System.out.println(data);
+                System.out.println("Number of swaps: " + swaps);
+            case "transpositionSort":
+                Collections.shuffle(data);
+                System.out.println(data);
+                swaps = transpositionSort(data, data.size());
+                System.out.println(data);
+                System.out.println("Number of swaps: " + swaps);
+        }
     }
 
     private static boolean isNumeric(String str) {
