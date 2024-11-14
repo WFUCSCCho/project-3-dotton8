@@ -1,4 +1,5 @@
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -267,12 +268,56 @@ public class Proj3 {
         inputFileNameScanner.close();
 
         int swaps;
+        double runTime;
+        long start, end;
+        String content;
+
+        String sortedFile = "./sorted.txt";
+        String analysisFile = "./analysis.txt";
+        clearFile(sortedFile);
+
+        writeToFile(sortedFile, "Sorting for " + numLines + " movies");
+        writeToFile(analysisFile, "Runtimes for " + numLines + " movies");
+
         switch (algorithm) {
             case "mergeSort":
-                Collections.shuffle(data);
-                System.out.println(data);
+
+                // sorted
+                Collections.sort(data);
+                start = System.nanoTime();
                 mergeSort(data, 0, data.size() - 1);
-                System.out.println(data);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Merge Sort (sorted) runtime: " + runTime + " seconds";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+
+                // shuffled
+                Collections.shuffle(data);
+                start = System.nanoTime();
+                mergeSort(data, 0, data.size() - 1);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Merge Sort (shuffled) runtime: " + runTime + " seconds";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+
+                // reversed
+                Collections.sort(data, Collections.reverseOrder());
+                start = System.nanoTime();
+                mergeSort(data, 0, data.size() - 1);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Merge Sort (reversed) runtime: " + runTime + " seconds";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+
                 break;
             case "quickSort":
                 Collections.shuffle(data);
@@ -298,6 +343,11 @@ public class Proj3 {
                 swaps = transpositionSort(data, data.size());
                 System.out.println(data);
                 System.out.println("Number of swaps: " + swaps);
+                break;
+            default:
+                content = "Invalid sorting algorithm: " + algorithm;
+                writeToFile(content, analysisFile);
+                break;
         }
     }
 
@@ -310,6 +360,22 @@ public class Proj3 {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    private static void writeToFile(String fileName, String content) {
+        try (FileWriter fw = new FileWriter(fileName, true)) {
+            fw.write(content + System.lineSeparator());
+        } catch (IOException e) {
+            System.exit(1);
+        }
+    }
+
+    private static void clearFile(String fileName) {
+        try (FileWriter fw = new FileWriter(fileName, false)) {
+            fw.write("");
+        } catch (IOException e) {
+            System.exit(1);
         }
     }
 }
