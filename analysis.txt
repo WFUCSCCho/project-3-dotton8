@@ -1,4 +1,5 @@
-Transposition Sort comparisons for 1000 movies
-Sorted comparisons: 0
-Shuffled comparisons: 118775
-Reversed comparisons: 235707
+Merge Sort runtimes for 64 movies
+Sorted runtime: 1.82709E-4 seconds
+Shuffled runtime: 9.75E-5 seconds
+Reversed runtime: 6.825E-5 seconds
+

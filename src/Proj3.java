@@ -1,3 +1,10 @@
+/***
+ * @file: Proj3.java
+ * @description: This code has multiple sorting algorithms and shows the runtime and or comparisons for each algorithm
+ * @author: Douglas Otton
+ * @date: November 14, 2024
+ ***/
+
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -275,7 +282,6 @@ public class Proj3 {
         String sortedFile = "./sorted.txt";
         String analysisFile = "./analysis.txt";
         clearFile(sortedFile);
-        clearFile(analysisFile);
 
         writeToFile(sortedFile, "Sorting for " + numLines + " movies");
 
