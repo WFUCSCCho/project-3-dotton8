@@ -1,12 +1,4 @@
-Merge Sort (sorted) runtime: 2.0375E-5 seconds
-Merge Sort (shuffled) runtime: 1.7334E-5 seconds
-Merge Sort (reversed) runtime: 2.2417E-5 seconds
-Merge Sort (sorted) runtime: 1.825E-5 seconds
-Merge Sort (shuffled) runtime: 3.125E-5 seconds
-Merge Sort (reversed) runtime: 1.3334E-5 seconds
-Merge Sort (sorted) runtime: 1.9333E-5 seconds
-Merge Sort (shuffled) runtime: 2.6541E-5 seconds
-Merge Sort (reversed) runtime: 1.1125E-5 seconds
-Merge Sort (sorted) runtime: 2.1E-5 seconds
-Merge Sort (shuffled) runtime: 4.3167E-5 seconds
-Merge Sort (reversed) runtime: 1.0208E-5 seconds
+Bubble Sort runtimes and comparisons for 64 movies
+Sorted runtime: 2.025E-5 seconds 			Sorted comparisons: 0
+Sorted runtime: 3.34667E-4 seconds 			Sorted comparisons: 1067
+Sorted runtime: 1.53709E-4 seconds 			Sorted comparisons: 2016

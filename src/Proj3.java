@@ -275,12 +275,16 @@ public class Proj3 {
         String sortedFile = "./sorted.txt";
         String analysisFile = "./analysis.txt";
         clearFile(sortedFile);
+        clearFile(analysisFile);
 
         writeToFile(sortedFile, "Sorting for " + numLines + " movies");
-        writeToFile(analysisFile, "Runtimes for " + numLines + " movies");
+
 
         switch (algorithm) {
             case "mergeSort":
+                content = "Merge Sort runtimes for " + numLines + " movies";
+                writeToFile(analysisFile, content);
+                System.out.println(content);
 
                 // sorted
                 Collections.sort(data);
@@ -290,9 +294,10 @@ public class Proj3 {
                 runTime = end - start;
                 runTime = runTime / 1_000_000_000.0;
 
-                content = "Merge Sort (sorted) runtime: " + runTime + " seconds";
+                content = "Sorted runtime: " + runTime + " seconds";
                 writeToFile(analysisFile, content);
                 writeToFile(sortedFile, data.toString());
+                System.out.println(content);
 
                 // shuffled
                 Collections.shuffle(data);
@@ -302,9 +307,10 @@ public class Proj3 {
                 runTime = end - start;
                 runTime = runTime / 1_000_000_000.0;
 
-                content = "Merge Sort (shuffled) runtime: " + runTime + " seconds";
+                content = "Shuffled runtime: " + runTime + " seconds";
                 writeToFile(analysisFile, content);
                 writeToFile(sortedFile, data.toString());
+                System.out.println(content);
 
                 // reversed
                 Collections.sort(data, Collections.reverseOrder());
@@ -314,35 +320,146 @@ public class Proj3 {
                 runTime = end - start;
                 runTime = runTime / 1_000_000_000.0;
 
-                content = "Merge Sort (reversed) runtime: " + runTime + " seconds";
+                content = "Reversed runtime: " + runTime + " seconds\n";
                 writeToFile(analysisFile, content);
                 writeToFile(sortedFile, data.toString());
+                System.out.println(content);
 
                 break;
             case "quickSort":
-                Collections.shuffle(data);
-                System.out.println(data);
+                content = "Quick Sort runtimes for " + numLines + " movies";
+                writeToFile(analysisFile, content);
+                System.out.println(content);
+
+                // sorted
+                Collections.sort(data);
+                start = System.nanoTime();
                 quickSort(data, 0, data.size() - 1);
-                System.out.println(data);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Sorted runtime: " + runTime + " seconds";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // shuffled
+                Collections.shuffle(data);
+                start = System.nanoTime();
+                quickSort(data, 0, data.size() - 1);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Shuffled runtime: " + runTime + " seconds";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // reversed
+                Collections.sort(data, Collections.reverseOrder());
+                start = System.nanoTime();
+                quickSort(data, 0, data.size() - 1);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Reversed runtime: " + runTime + " seconds\n";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
                 break;
             case "heapSort":
-                Collections.shuffle(data);
-                System.out.println(data);
+                content = "Heap Sort runtimes for " + numLines + " movies";
+                writeToFile(analysisFile, content);
+                System.out.println(content);
+
+                // sorted
+                Collections.sort(data);
+                start = System.nanoTime();
                 heapSort(data, 0, data.size() - 1);
-                System.out.println(data);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Sorted runtime: " + runTime + " seconds";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // shuffled
+                Collections.shuffle(data);
+                start = System.nanoTime();
+                heapSort(data, 0, data.size() - 1);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Shuffled runtime: " + runTime + " seconds";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // reversed
+                Collections.sort(data, Collections.reverseOrder());
+                start = System.nanoTime();
+                heapSort(data, 0, data.size() - 1);
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Reversed runtime: " + runTime + " seconds\n";
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
                 break;
             case "bubbleSort":
-                Collections.shuffle(data);
-                System.out.println(data);
+                content = "Bubble Sort runtimes and comparisons for " + numLines + " movies";
+                writeToFile(analysisFile, content);
+                System.out.println(content);
+
+                // sorted
+                Collections.sort(data);
+                start = System.nanoTime();
                 swaps = bubbleSort(data, data.size());
-                System.out.println(data);
-                System.out.println("Number of swaps: " + swaps);
-            case "transpositionSort":
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Sorted runtime: " + runTime + " seconds \t\t\tSorted comparisons: " + swaps;
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // shuffled
                 Collections.shuffle(data);
-                System.out.println(data);
-                swaps = transpositionSort(data, data.size());
-                System.out.println(data);
-                System.out.println("Number of swaps: " + swaps);
+                start = System.nanoTime();
+                swaps = bubbleSort(data, data.size());
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Sorted runtime: " + runTime + " seconds \t\t\tSorted comparisons: " + swaps;
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // reversed
+                Collections.sort(data, Collections.reverseOrder());
+                start = System.nanoTime();
+                swaps = bubbleSort(data, data.size());
+                end = System.nanoTime();
+                runTime = end - start;
+                runTime = runTime / 1_000_000_000.0;
+
+                content = "Sorted runtime: " + runTime + " seconds \t\t\tSorted comparisons: " + swaps;
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+                break;
+            case "transpositionSort":
+                content = "Transposition Sort runtimes for " + numLines + " movies";
                 break;
             default:
                 content = "Invalid sorting algorithm: " + algorithm;
