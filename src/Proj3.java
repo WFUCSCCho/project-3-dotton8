@@ -427,7 +427,7 @@ public class Proj3 {
                 runTime = end - start;
                 runTime = runTime / 1_000_000_000.0;
 
-                content = "Sorted runtime: " + runTime + " seconds \t\t\tSorted comparisons: " + swaps;
+                content = "Sorted runtime: " + runTime + " seconds \tSorted comparisons: " + swaps;
                 writeToFile(analysisFile, content);
                 writeToFile(sortedFile, data.toString());
                 System.out.println(content);
@@ -440,7 +440,7 @@ public class Proj3 {
                 runTime = end - start;
                 runTime = runTime / 1_000_000_000.0;
 
-                content = "Sorted runtime: " + runTime + " seconds \t\t\tSorted comparisons: " + swaps;
+                content = "Shuffled runtime: " + runTime + " seconds \tShuffled comparisons: " + swaps;
                 writeToFile(analysisFile, content);
                 writeToFile(sortedFile, data.toString());
                 System.out.println(content);
@@ -453,13 +453,42 @@ public class Proj3 {
                 runTime = end - start;
                 runTime = runTime / 1_000_000_000.0;
 
-                content = "Sorted runtime: " + runTime + " seconds \t\t\tSorted comparisons: " + swaps;
+                content = "Reversed runtime: " + runTime + " seconds \tReversed comparisons: " + swaps;
                 writeToFile(analysisFile, content);
                 writeToFile(sortedFile, data.toString());
                 System.out.println(content);
                 break;
             case "transpositionSort":
-                content = "Transposition Sort runtimes for " + numLines + " movies";
+                content = "Transposition Sort comparisons for " + numLines + " movies";
+                writeToFile(analysisFile, content);
+                System.out.println(content);
+
+                // sorted
+                Collections.sort(data);
+                swaps = transpositionSort(data, data.size());
+
+                content = "Sorted comparisons: " + swaps;
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // shuffled
+                Collections.shuffle(data);
+                swaps = transpositionSort(data, data.size());
+
+                content = "Shuffled comparisons: " + swaps;
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
+
+                // reversed
+                Collections.sort(data, Collections.reverseOrder());
+                swaps = transpositionSort(data, data.size());
+
+                content = "Reversed comparisons: " + swaps;
+                writeToFile(analysisFile, content);
+                writeToFile(sortedFile, data.toString());
+                System.out.println(content);
                 break;
             default:
                 content = "Invalid sorting algorithm: " + algorithm;

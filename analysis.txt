@@ -1,4 +1,4 @@
-Bubble Sort runtimes and comparisons for 64 movies
-Sorted runtime: 2.025E-5 seconds 			Sorted comparisons: 0
-Sorted runtime: 3.34667E-4 seconds 			Sorted comparisons: 1067
-Sorted runtime: 1.53709E-4 seconds 			Sorted comparisons: 2016
+Transposition Sort comparisons for 1000 movies
+Sorted comparisons: 0
+Shuffled comparisons: 118775
+Reversed comparisons: 235707
