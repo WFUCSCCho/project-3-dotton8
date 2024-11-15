@@ -1,0 +1,5 @@
+Merge Sort runtimes for 64 movies
+Sorted runtime: 1.82709E-4 seconds
+Shuffled runtime: 9.75E-5 seconds
+Reversed runtime: 6.825E-5 seconds
+
